@@ -5,7 +5,6 @@ import sys
 import glob
 import time
 import pyinputplus
-from soup_kitchen import soup_kitchen
 import imageio.v3 as iio
 import os
 import re
