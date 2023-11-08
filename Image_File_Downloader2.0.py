@@ -166,11 +166,11 @@ def find_latest_file_added(folder):
 
 def wait_for_download():
 
-    latest_file = find_latest_file_added('/home/jahn/Downloads')
+    latest_file = find_latest_file_added('~/Downloads')
     downloading = '.crdownload'
 
     while downloading in latest_file:
-        latest_file = find_latest_file_added('/home/jahn/Downloads')
+        latest_file = find_latest_file_added('~/Downloads')
         time.sleep(2)
         logger.debug('Downloading file...')
 
@@ -181,7 +181,7 @@ print('Welcome to Image_Downloader.')
 search_terms = input('Please enter your search query: ')
 logger.debug('Search Terms: ' + search_terms)
 search_terms_folder = search_terms.replace(' ', '_')
-search_terms_folder_location = '/home/jahn/Pictures/ISD_Storage/' + search_terms_folder + '/'
+search_terms_folder_location = '~/Pictures/ISD_Storage/' + search_terms_folder + '/'
 if os.path.exists(search_terms_folder_location):
     shutil.rmtree(search_terms_folder_location)
 # This should check with user - pos. to cont. from prev point
@@ -207,7 +207,7 @@ print('Accessing website...')
 if target_site == 'https://imgur.com/':
 
     driver.get(target_site + 'search?q=' + search_terms)
-    initial_number_of_downloads = find_number_of_files('/home/jahn/Downloads')
+    initial_number_of_downloads = find_number_of_files('~/Downloads')
 
     number_of_results = find_text_of_element("//span[@class='sorting-text-align']//i")
 
@@ -241,7 +241,7 @@ if target_site == 'https://imgur.com/':
         click_element(download_option)
 
         wait_for_download()
-        download_location = find_latest_file_added('/home/jahn/Downloads')
+        download_location = find_latest_file_added('~/Downloads')
         logger.debug('Moving files to search folder...')
         shutil.move(download_location, search_terms_folder_location)
         initial_number_of_downloads += 1
@@ -283,7 +283,7 @@ if target_site == 'https://www.flickr.com/':
 
         logger.debug('Current Link: ' + i)
         driver.get(i)
-        initial_number_of_downloads = find_number_of_files('/home/jahn/Downloads')
+        initial_number_of_downloads = find_number_of_files('~/Downloads')
 
         title = find_text_of_element("//h1[@class=' meta-field photo-title ']")
         print('Downloading ' + title)
@@ -324,7 +324,7 @@ if target_site == 'https://www.flickr.com/':
 
             download_name = find_flickr_download_body(image_source)
             download_name = download_name + '_o' + file_type_suffix
-            download_location = '/home/jahn/Downloads/' + download_name
+            download_location = '~/Downloads/' + download_name
 
             file_location = find_file_destination(title, file_type_suffix)
 
